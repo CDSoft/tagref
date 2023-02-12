@@ -63,14 +63,20 @@ local function scan(args)
 
     F(args.path):map(function(path)
         local git_files = sh.read{"git", "ls-files", path, "2>/dev/null"}
-        local files = git_files and git_files:lines() or fs.walk(path):filter(fs.is_file)
+        local files = git_files and git_files:lines() or fs.walk(path)
 
         files:map(function(filename)
-            local content = fs.read(filename)
-            -- search for tags and update [ref:tag_table]
-            content:gsub("%["..args.tag_prefix..":([%w_]+)%]", function(tagname) add_tag(tagname, filename) end)
-            -- search for references and update [ref:ref_table]
-            content:gsub("%["..args.ref_prefix..":([%w_]+)%]", function(refname) add_ref(refname, filename) end)
+            if fs.is_file(filename) then
+                local content, err = fs.read(filename)
+                if content then
+                    -- search for tags and update [ref:tag_table]
+                    content:gsub("%["..args.tag_prefix..":([%w_]+)%]", function(tagname) add_tag(tagname, filename) end)
+                    -- search for references and update [ref:ref_table]
+                    content:gsub("%["..args.ref_prefix..":([%w_]+)%]", function(refname) add_ref(refname, filename) end)
+                else
+                    io.stderr:write("Error: ", filename, ": ", err, "\n")
+                end
+            end
         end)
     end)
 
