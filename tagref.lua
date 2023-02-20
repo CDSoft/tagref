@@ -1,8 +1,5 @@
 #!/usr/bin/env luax
 
-local F = require "fun"
-local fs = require "fs"
-
 local check, list_refs, list_tags, list_unused
 
 local function handle_args()

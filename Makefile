@@ -12,6 +12,3 @@ install: $(TAGREF)
 
 $(TAGREF): tagref.lua | $(LUAX)
 	$(LUAX) -o $@ $<
-
-
-# TODO : license : WTFPL ?
