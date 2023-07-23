@@ -41,7 +41,9 @@ local function handle_args()
 end
 
 local function scan(args)
+    local F = require "F"
     local sh = require "sh"
+    local fs = require "fs"
 
     local tags = F{}    -- [tag:tag_table]
     local refs = F{}    -- [tag:ref_table]
