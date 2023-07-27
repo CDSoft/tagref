@@ -64,7 +64,7 @@ local function scan(args)
         local git_files = sh.read{"git", "ls-files", path, "2>/dev/null"}
         local files = git_files and git_files:lines() or fs.walk(path)
 
-        files:map(function(filename)
+        files:foreach(function(filename)
             if fs.is_file(filename) then
                 local content, err = fs.read(filename)
                 if content then
@@ -80,7 +80,7 @@ local function scan(args)
     end)
 
     -- build links from references to tags and vice versa
-    refs:mapt(function(ref)
+    refs:foreacht(function(ref)
         local tag = tags[ref.refname]
         if tag then
             tag.refs[#tag.refs+1] = ref
@@ -94,13 +94,13 @@ end
 check = function(args)
     local tags, refs = scan(args)
     local ret = 0
-    refs:values():map(function(ref)
+    refs:values():foreach(function(ref)
         if #ref.tags == 0 then
             print(("%s:%s: dangling reference in %s"):format(args.ref_prefix, ref.refname, ref.filenames:str ", "))
             ret = 1
         end
     end)
-    tags:values():map(function(tag)
+    tags:values():foreach(function(tag)
         if #tag.filenames > 1 then
             print(("%s:%s: multiple definition in %s"):format(args.tag_prefix, tag.tagname, tag.filenames:str ", "))
             ret = 1
@@ -111,7 +111,7 @@ end
 
 list_refs = function(args)
     local _, refs = scan(args)
-    refs:values():map(function(ref)
+    refs:values():foreach(function(ref)
         print(("%s:%s: %s"):format(args.ref_prefix, ref.refname, ref.filenames:str ", "))
     end)
     os.exit()
@@ -119,7 +119,7 @@ end
 
 list_tags = function(args)
     local tags, _ = scan(args)
-    tags:values():map(function(tag)
+    tags:values():foreach(function(tag)
         print(("%s:%s: %s"):format(args.tag_prefix, tag.tagname, tag.filenames:str ", "))
     end)
     os.exit()
@@ -127,7 +127,7 @@ end
 
 list_unused = function(args)
     local tags, _ = scan(args)
-    tags:values():map(function(tag)
+    tags:values():foreach(function(tag)
         if tag.refs:null() then
             print(("%s:%s: %s"):format(args.tag_prefix, tag.tagname, tag.filenames:str ", "))
         end
