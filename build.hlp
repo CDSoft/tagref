@@ -1,0 +1,6 @@
+Tagref installation
+
+Targets:
+  help      show this help message
+  install   install Tagref in $PREFIX or $HOME/.local
+  clean     clean generated files
