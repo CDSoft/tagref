@@ -55,8 +55,8 @@ build clean: phony clean-_builddir
 # Help
 ######################################################################
 
-rule help
-  description = $in
-  command = cat $in
+rule help-baa98f7c64c4f0f9
+  description = help
+  command = echo "Tagref installation"; echo ""; echo "Targets:"; echo "  help      show this help message"; echo "  install   install Tagref in $PREFIX or $HOME/.local"; echo "  clean     clean generated files";
 
-build help: help build.hlp
+build help: help-baa98f7c64c4f0f9
