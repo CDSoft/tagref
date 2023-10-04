@@ -22,41 +22,43 @@
 
 builddir = .build
 
-rule _builddir_tagref-55a6092598dfff0e
-  command = luax -o $out $in
+rule _builddir_tagref
+  command = luax -q -o $out $in
 
-build $builddir/tagref: _builddir_tagref-55a6092598dfff0e src/tagref.lua
+build $builddir/tagref: _builddir_tagref src/tagref.lua
+
+default $builddir/tagref
 
 ######################################################################
 # Installation
 ######################################################################
 
-prefix = $$HOME/.local
+prefix = ~/.local
 
-rule install-bin-aaae5423e8c8a9d9
+rule install-bin
   description = INSTALL $in to bin
   command = install -v -D -t $${PREFIX:-$prefix}/bin $in
 
-build install-bin: install-bin-aaae5423e8c8a9d9 $builddir/tagref
+build install-bin: install-bin $builddir/tagref
 build install: phony install-bin
 
 ######################################################################
 # Clean
 ######################################################################
 
-rule clean-_builddir-e7c9fd42467ee7fb
+rule clean-_builddir
   description = CLEAN $builddir
   command = rm -rf $builddir/*
 
-build clean-_builddir: clean-_builddir-e7c9fd42467ee7fb
+build clean-_builddir: clean-_builddir
 build clean: phony clean-_builddir
 
 ######################################################################
 # Help
 ######################################################################
 
-rule help-baa98f7c64c4f0f9
+rule help
   description = help
-  command = echo "Tagref installation"; echo ""; echo "Targets:"; echo "  help      show this help message"; echo "  install   install Tagref in $PREFIX or $HOME/.local"; echo "  clean     clean generated files";
+  command = echo "Tagref installation"; echo ""; echo "Targets:"; echo "  help      show this help message"; echo "  install   install Tagref in PREFIX or ~/.local"; echo "  clean     clean generated files";
 
-build help: help-baa98f7c64c4f0f9
+build help: help

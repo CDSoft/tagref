@@ -25,7 +25,9 @@ var "builddir" ".build"
 clean "$builddir"
 
 build "$builddir/tagref" { ls "src/*.lua",
-    command = "luax -o $out $in",
+    command = "luax -q -o $out $in",
 }
 
 install "bin" "$builddir/tagref"
+
+default "$builddir/tagref"
