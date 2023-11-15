@@ -24,9 +24,12 @@ help.description "$name installation"
 var "builddir" ".build"
 clean "$builddir"
 
-build "$builddir/tagref" { ls "src/*.lua",
+rule "luax" {
+    description = "LUAX $out",
     command = "luax -q -o $out $in",
 }
+
+build "$builddir/tagref" { "luax", ls "src/*.lua" }
 
 install "bin" "$builddir/tagref"
 
