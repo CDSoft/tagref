@@ -18,19 +18,43 @@ For further information about Tagref you can visit
 http://cdelord.fr/tagref
 ]]
 
+local F = require "F"
+
 help.name "Tagref"
 help.description "$name installation"
 
 var "builddir" ".build"
 clean "$builddir"
 
+local targets = F(require "sys".targets):map(F.partial(F.nth, "name"))
+local target, ext = nil, ""
+F(arg) : foreach(function(a)
+    if targets:elem(a) then
+        if target then F.error_without_stack_trace("multiple target definition", 2) end
+        target = a
+        if target:match"windows" then ext = ".exe" end
+    else
+        F.error_without_stack_trace(a..": unknown argument")
+    end
+end)
+
 rule "luax" {
     description = "LUAX $out",
     command = "luax -q -o $out $in",
 }
 
-build "$builddir/tagref" { "luax", ls "src/*.lua" }
+rule "luaxc" {
+    description = "LUAXC $out",
+    command = "luaxc $arg -o $out $in",
+    pool = pool "luaxc" { depth = 1 },
+}
 
-install "bin" "$builddir/tagref"
+local tagref = build("$builddir/tagref"..ext) {
+    target and "luaxc" or "luax",
+    ls "src/*.lua",
+    arg = target and {"-t", target},
+}
 
-default "$builddir/tagref"
+install "bin" { tagref }
+
+default { tagref }

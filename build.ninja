@@ -28,6 +28,14 @@ rule luax
   description = LUAX $out
   command = luax -q -o $out $in
 
+pool luaxc
+  depth = 1
+
+rule luaxc
+  description = LUAXC $out
+  command = luaxc $arg -o $out $in
+  pool = luaxc
+
 build $builddir/tagref: luax src/tagref.lua
 
 default $builddir/tagref
