@@ -24,19 +24,11 @@ ninja_required_version = 1.11.1
 
 builddir = .build
 
-rule luax
-  description = LUAX $out
-  command = luax -q -o $out $in
-
-pool luaxc
-  depth = 1
-
 rule luaxc
   description = LUAXC $out
-  command = luaxc $arg -o $out $in
-  pool = luaxc
+  command = luaxc $arg -q -o $out $in
 
-build $builddir/tagref: luax src/tagref.lua
+build $builddir/tagref: luaxc src/tagref.lua
 
 default $builddir/tagref
 
@@ -70,7 +62,12 @@ build clean: phony clean-_builddir
 
 rule help
   description = help
-  command = echo "Tagref installation"; echo ""; echo "Targets:"; echo "  help      show this help message"; echo "  install   install Tagref in PREFIX or ~/.local"; echo "  clean     clean generated files";
+  command = echo "Tagref installation"; $
+            echo ""; $
+            echo "Targets:"; $
+            echo "  help      show this help message"; $
+            echo "  install   install Tagref in PREFIX or ~/.local"; $
+            echo "  clean     clean generated files"
 
 build help: help
 

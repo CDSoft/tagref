@@ -38,19 +38,13 @@ F(arg) : foreach(function(a)
     end
 end)
 
-rule "luax" {
-    description = "LUAX $out",
-    command = "luax -q -o $out $in",
-}
-
 rule "luaxc" {
     description = "LUAXC $out",
-    command = "luaxc $arg -o $out $in",
-    pool = pool "luaxc" { depth = 1 },
+    command = "luaxc $arg -q -o $out $in",
 }
 
 local tagref = build("$builddir/tagref"..ext) {
-    target and "luaxc" or "luax",
+    "luaxc",
     ls "src/*.lua",
     arg = target and {"-t", target},
 }
