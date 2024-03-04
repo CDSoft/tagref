@@ -19,34 +19,28 @@ http://cdelord.fr/tagref
 ]]
 
 local F = require "F"
+local sys = require "sys"
 
 help.name "Tagref"
 help.description "$name installation"
 
-var "builddir" ".build"
-clean "$builddir"
+local target, args = target(arg)
+if #args > 0 then
+    F.error_without_stack_trace(args:unwords()..": unexpected arguments")
+end
 
-local targets = F(require "sys".targets):map(F.partial(F.nth, "name"))
-local target, ext = nil, ""
-F(arg) : foreach(function(a)
-    if targets:elem(a) then
-        if target then F.error_without_stack_trace("multiple target definition", 2) end
-        target = a
-        if target:match"windows" then ext = ".exe" end
-    else
-        F.error_without_stack_trace(a..": unknown argument")
-    end
-end)
+var "builddir" (".build"/(target and target.name))
+clean "$builddir"
 
 rule "luaxc" {
     description = "LUAXC $out",
     command = "luaxc $arg -q -o $out $in",
 }
 
-local tagref = build("$builddir/tagref"..ext) {
+local tagref = build("$builddir/tagref"..(target or sys.build).exe) {
     "luaxc",
     ls "src/*.lua",
-    arg = target and {"-t", target},
+    arg = target and {"-t", target.name},
 }
 
 install "bin" { tagref }
