@@ -37,7 +37,7 @@ rule "luaxc" {
     command = "luaxc $arg -q -o $out $in",
 }
 
-local tagref = build("$builddir/tagref"..(target or sys.build).exe) {
+local tagref = build("$builddir/tagref"..(target or sys).exe) {
     "luaxc",
     ls "src/*.lua",
     arg = target and {"-t", target.name},
