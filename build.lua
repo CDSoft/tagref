@@ -26,7 +26,7 @@ help.description "$name installation"
 
 local target, args = target(arg)
 if #args > 0 then
-    F.error_without_stack_trace(args:unwords()..": unexpected arguments")
+    F.error_without_stack_trace(F.unwords(args)..": unexpected arguments")
 end
 
 var "builddir" (".build"/(target and target.name))

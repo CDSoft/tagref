@@ -79,8 +79,10 @@ local function scan(args)
     end
 
     F(args.path):map(function(path)
-        local git_files = sh.read{"git", "ls-files", path, "2>/dev/null"}
-        local files = git_files and git_files:lines() or fs.walk(path)
+        local git_files = sh{"git", "ls-files", path, "2>/dev/null"}
+        local files = git_files
+            and git_files:lines() ---@diagnostic disable-line: undefined-field
+            or fs.walk(path)
 
         files:foreach(function(filename)
             if fs.is_file(filename) then
