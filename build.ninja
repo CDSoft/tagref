@@ -26,9 +26,10 @@ builddir = .build
 
 rule luaxc
   description = LUAXC $out
-  command = luaxc $arg -q -o $out $in
+  command = luax compile $arg -q -o $out $in
 
 build $builddir/tagref: luaxc src/tagref.lua
+  arg = -b -t linux-x86_64
 
 default $builddir/tagref
 

@@ -34,13 +34,13 @@ clean "$builddir"
 
 rule "luaxc" {
     description = "LUAXC $out",
-    command = "luaxc $arg -q -o $out $in",
+    command = "luax compile $arg -q -o $out $in",
 }
 
 local tagref = build("$builddir/tagref"..(target or sys).exe) {
     "luaxc",
     ls "src/*.lua",
-    arg = target and {"-t", target.name},
+    arg = { "-b", "-t", (target or sys).name },
 }
 
 install "bin" { tagref }
