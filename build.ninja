@@ -29,7 +29,7 @@ rule luaxc
   command = luax compile $arg -q -o $out $in
 
 build $builddir/tagref: luaxc src/tagref.lua
-  arg = -b -t linux-x86_64
+  arg = -b -t native
 
 default $builddir/tagref
 

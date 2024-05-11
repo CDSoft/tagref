@@ -40,7 +40,7 @@ rule "luaxc" {
 local tagref = build("$builddir/tagref"..(target or sys).exe) {
     "luaxc",
     ls "src/*.lua",
-    arg = { "-b", "-t", (target or sys).name },
+    arg = { "-b", "-t", target and target.name or "native" },
 }
 
 install "bin" { tagref }
