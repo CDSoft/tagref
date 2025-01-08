@@ -16,7 +16,7 @@
 -- along with Tagref.  If not, see <https://www.gnu.org/licenses/>.
 --
 -- For further information about Tagref you can visit
--- http://cdelord.fr/tagref
+-- https://github.com/cdsoft/tagref
 
 local check, list_refs, list_tags, list_unused
 

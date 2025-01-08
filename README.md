@@ -4,7 +4,7 @@ First of all, this software is a reimplementation of
 [tagref](https://github.com/stepchowfun/tagref). The primary goal was to test
 [LuaX](https://github.com/CDSoft/luax) and
 [argparse](https://github.com/CDSoft/luax/blob/master/doc/argparse.md). If you
-need a faster implementation I strongly recommend to use
+need a faster implementation I strongly recommend to use the original
 [tagref](https://github.com/stepchowfun/tagref).
 
 Tagref helps you maintain cross-references in your code. You can use it to help
