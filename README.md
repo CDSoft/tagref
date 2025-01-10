@@ -101,11 +101,16 @@ Commands:
 
 ## Installation instructions
 
+Tagref requires [ninja](https://ninja-build.org/),
+[LuaX](https://github.com/CDSoft/luax) and [bang](https://github.com/CDSoft/bang).
+
 You can download and compile Tagref with these commands:
 
 ```sh
 git clone https://github.com/CDSoft/tagref
-make -C tagref install
+cd tagref
+bang            # generates build.ninja
+ninja install
 ```
 
 This will install `tagref` to `~/.local/bin`.

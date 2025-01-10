@@ -79,7 +79,7 @@ local function scan(args)
     end
 
     F(args.path):map(function(path)
-        local git_files = sh{"git", "ls-files", path, "2>/dev/null"}
+        local git_files = sh{"git ls-files", path, "2>/dev/null"}
         local files = git_files
             and git_files:lines() ---@diagnostic disable-line: undefined-field
             or fs.walk(path)
