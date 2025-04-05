@@ -2,8 +2,8 @@
 
 First of all, this software is a reimplementation of
 [tagref](https://github.com/stepchowfun/tagref). The primary goal was to test
-[LuaX](https://github.com/CDSoft/luax) and
-[argparse](https://github.com/CDSoft/luax/blob/master/doc/argparse.md). If you
+[LuaX](https://codeberg.org/cdsoft/luax) and
+[argparse](https://codeberg.org/cdsoft/luax/blob/master/doc/argparse.md). If you
 need a faster implementation I strongly recommend to use the original
 [tagref](https://github.com/stepchowfun/tagref).
 
@@ -102,12 +102,12 @@ Commands:
 ## Installation instructions
 
 Tagref requires [ninja](https://ninja-build.org/),
-[LuaX](https://github.com/CDSoft/luax) and [bang](https://github.com/CDSoft/bang).
+[LuaX](https://codeberg.org/cdsoft/luax) and [bang](https://codeberg.org/cdsoft/bang).
 
 You can download and compile Tagref with these commands:
 
 ```sh
-git clone https://github.com/CDSoft/tagref
+git clone https://codeberg.org/cdsoft/tagref
 cd tagref
 bang            # generates build.ninja
 ninja install

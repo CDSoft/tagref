@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with Tagref.  If not, see <https://www.gnu.org/licenses/>.
 
 For further information about Tagref you can visit
-https://github.com/cdsoft/tagref
+https://codeberg.org/cdsoft/tagref
 ]]
 
 local sh = require "sh"

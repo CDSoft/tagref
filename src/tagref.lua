@@ -16,7 +16,7 @@
 -- along with Tagref.  If not, see <https://www.gnu.org/licenses/>.
 --
 -- For further information about Tagref you can visit
--- https://github.com/cdsoft/tagref
+-- https://codeberg.org/cdsoft/tagref
 
 local check, list_refs, list_tags, list_unused
 
@@ -24,7 +24,7 @@ local function handle_args()
     local tagref = require "argparse"()
         :name "tagref"
         :description "Tagref helps you maintain cross-references in your code."
-        :epilog "For more information, see https://github.com/CDSoft/tagref"
+        :epilog "For more information, see https://codeberg.org/cdsoft/tagref"
     tagref:option "-p"
         :description "Adds the path of a directory to scan"
         :target "path"
