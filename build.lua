@@ -18,16 +18,13 @@ For further information about Tagref you can visit
 https://codeberg.org/cdsoft/tagref
 ]]
 
-local sh = require "sh"
+version "0.2.4"
 
 help.name "Tagref"
 help.description "$name installation"
 
 var "builddir" ".build"
 clean "$builddir"
-
-var "git_version" { sh "git describe --tags" }
-generator { implicit_in = ".git/refs/tags" }
 
 build.luax.add_global "flags" "-q"
 
@@ -40,16 +37,16 @@ install "bin" { tagref }
 default { tagref }
 
 phony "release" {
-    build.tar "$builddir/release/${git_version}/tagref-${git_version}-lua.tar.gz" {
+    build.tar "$builddir/release/${version}/tagref-${version}-lua.tar.gz" {
         base = "$builddir/release/.build",
-        name = "tagref-${git_version}-lua",
-        build.luax.lua("$builddir/release/.build/tagref-${git_version}-lua/bin/tagref.lua") { sources },
+        name = "tagref-${version}-lua",
+        build.luax.lua("$builddir/release/.build/tagref-${version}-lua/bin/tagref.lua") { sources },
     },
     require "targets" : map(function(target)
-        return build.tar("$builddir/release/${git_version}/tagref-${git_version}-"..target.name..".tar.gz") {
+        return build.tar("$builddir/release/${version}/tagref-${version}-"..target.name..".tar.gz") {
             base = "$builddir/release/.build",
-            name = "tagref-${git_version}-"..target.name,
-            build.luax[target.name]("$builddir/release/.build/tagref-${git_version}-"..target.name/"bin/tagref") { sources },
+            name = "tagref-${version}-"..target.name,
+            build.luax[target.name]("$builddir/release/.build/tagref-${version}-"..target.name/"bin/tagref") { sources },
         }
     end),
 }
